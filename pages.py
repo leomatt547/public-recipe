@@ -3,13 +3,14 @@ import tkinter.font as tkFont
 from tkinter import ttk
 from PIL import ImageTk, Image
 import login
+import register
 import pandas as pd
 
 class homePage :
     def __init__(self, root):
         self.root = root
         #setting title
-        root.title("undefined")
+        root.title("Home Page")
         #setting window size
         width=951
         height=703
@@ -67,12 +68,15 @@ class homePage :
         self.root.mainloop()
 
     def gotoRegister(self, event) :
-        print("goto register")
+        self.root.destroy()
+        self.root = tk.Tk()
+        self.app = Register(self.root)
+        self.root.mainloop()
 
 class Login:
     def __init__(self, root):
         #setting title
-        root.title("undefined")
+        root.title("Login")
         #setting window size
         width=951
         height=703
@@ -168,6 +172,162 @@ class Login:
                 print("Berhasil masuk")
             else :
                 print("User tidak ditemukan")
+
+class Register:
+    def __init__(self, root):
+        #setting title
+        root.title("undefined")
+        #setting window size
+        width=951
+        height=703
+        screenwidth = root.winfo_screenwidth()
+        screenheight = root.winfo_screenheight()
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
+        root.geometry(alignstr)
+        root.resizable(width=False, height=False)
+        root.configure(background = "white")
+
+        menuBar = tk.Frame(master = root, height = 50, width = 951, bg = "pink")
+        menuBar.pack()
+
+        labelTitle=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelTitle["font"] = ft
+        labelTitle["fg"] = "#333333"
+        labelTitle["justify"] = "center"
+        labelTitle["text"] = "Public Recipe"
+        labelTitle["bg"] = "pink"
+        labelTitle.config(font="Courier")
+        labelTitle.place(x=378,y=10,width=205,height=30)
+
+        labelName=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelName["font"] = ft
+        labelName["fg"] = "#333333"
+        labelName["justify"] = "left"
+        labelName["text"] = "Name :"
+        labelName.place(x=30,y=110,width=70,height=25)
+
+        entryName=tk.Entry(root)
+        entryName["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        entryName["font"] = ft
+        entryName["fg"] = "#333333"
+        entryName["justify"] = "center"
+        entryName["text"] = ""
+        entryName.place(x=30,y=140,width=303,height=30)
+
+        labelPhone=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelPhone["font"] = ft
+        labelPhone["fg"] = "#333333"
+        labelPhone["justify"] = "left"
+        labelPhone["text"] = "Phone :"
+        labelPhone.place(x=30,y=180,width=70,height=25)
+
+        entryPhone=tk.Entry(root)
+        entryPhone["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        entryPhone["font"] = ft
+        entryPhone["fg"] = "#333333"
+        entryPhone["justify"] = "center"
+        entryPhone["text"] = ""
+        entryPhone.place(x=30,y=210,width=303,height=30)
+
+        labelEmail=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelEmail["font"] = ft
+        labelEmail["fg"] = "#333333"
+        labelEmail["justify"] = "left"
+        labelEmail["text"] = "Email address :"
+        labelEmail.place(x=30,y=250,width=85,height=30)
+
+        entryEmail=tk.Entry(root)
+        entryEmail["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        entryEmail["font"] = ft
+        entryEmail["fg"] = "#333333"
+        entryEmail["justify"] = "center"
+        entryEmail["text"] = ""
+        entryEmail.place(x=30,y=280,width=303,height=30)
+
+        labelAddress=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelAddress["font"] = ft
+        labelAddress["fg"] = "#333333"
+        labelAddress["justify"] = "left"
+        labelAddress["text"] = "Address :"
+        labelAddress.place(x=30,y=320,width=70,height=25)
+
+        entryAddress=tk.Entry(root)
+        entryAddress["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        entryAddress["font"] = ft
+        entryAddress["fg"] = "#333333"
+        entryAddress["justify"] = "center"
+        entryAddress["text"] = ""
+        entryAddress.place(x=30,y=350,width=303,height=30)
+
+        labelUsername=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelUsername["font"] = ft
+        labelUsername["fg"] = "#333333"
+        labelUsername["justify"] = "left"
+        labelUsername["text"] = "Username :"
+        labelUsername.place(x=520,y=110,width=70,height=25)
+
+        entryUsername=tk.Entry(root)
+        entryUsername["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        entryUsername["font"] = ft
+        entryUsername["fg"] = "#333333"
+        entryUsername["justify"] = "center"
+        entryUsername["text"] = ""
+        entryUsername.place(x=520,y=140,width=303,height=30)
+
+        labelPassword=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelPassword["font"] = ft
+        labelPassword["fg"] = "#333333"
+        labelPassword["justify"] = "left"
+        labelPassword["text"] = "Password :"
+        labelPassword.place(x=520,y=180,width=70,height=25)
+
+        entryPassword=tk.Entry(root)
+        entryPassword["borderwidth"] = "1px"
+        ft = tkFont.Font(family='Times',size=10)
+        entryPassword["font"] = ft
+        entryPassword["fg"] = "#333333"
+        entryPassword["justify"] = "center"
+        entryPassword["text"] = ""
+        entryPassword.place(x=520,y=210,width=303,height=30)
+
+        comboBox = ttk.Combobox(root, values = ["Shopper", "Pembeli"])
+        comboBox.place(x = 603, y = 280)
+
+        buttonRegister=tk.Button(root)
+        buttonRegister["bg"] = "#efefef"
+        ft = tkFont.Font(family='Times',size=10)
+        buttonRegister["font"] = ft
+        buttonRegister["fg"] = "#000000"
+        buttonRegister["justify"] = "center"
+        buttonRegister["text"] = "Register"
+        buttonRegister.place(x=640,y=310,width=70,height=25)
+        buttonRegister["command"] = lambda : self.buttonRegister_command(entryName.get(), entryPhone.get(), entryEmail.get(), entryAddress.get(), entryUsername.get(), entryPassword.get(), comboBox.get())
+
+    def buttonRegister_command(self, name, phone, email, address, username, password, status):
+        if status == "Pembeli" :
+            registered = register.registerPembeli(name, phone, email, address, username, password)
+            if registered :
+                print("Berhasil diregister")
+            else :
+                print("User telah pernah teregister")
+        elif status == "Shopper" :
+            registered = register.registerShopper(name, phone, email, address, username, password)    
+            if registered :
+                print("Berhasil diregister")
+            else :
+                print("User telah pernah teregister")
 
 if __name__ == "__main__":
     root = tk.Tk()
