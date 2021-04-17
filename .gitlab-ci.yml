@@ -1,5 +1,7 @@
-demo_job_1:
+test_master:
   tags:
     - rpl
+  only:
+    - master
   script:
-    - echo Hello World
+    - pytest
