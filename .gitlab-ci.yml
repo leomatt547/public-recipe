@@ -1,4 +1,4 @@
-test_resep:
+test_shopper:
   tags:
     - rpl
   script:
