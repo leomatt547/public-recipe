@@ -8,4 +8,3 @@ def test_init_shopperpage():
 def test_init_riwayat():
     Shopper.riwayat.__init__(self=Shopper.riwayat, usernameInput="aslan2")
     assert (Shopper.riwayat.username == "aslan2")
-
