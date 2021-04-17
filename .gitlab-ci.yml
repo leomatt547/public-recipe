@@ -1,5 +1,0 @@
-demo_job_1:
-  tags:
-    - rpl
-  script:
-    - echo Hello World
