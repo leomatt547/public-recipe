@@ -33,23 +33,6 @@ class Resep:
         self.root = tk.Tk()
         self.app = Contact(self.root)
         self.root.mainloop()
-
-    def cariButton_command(self, query):
-        count,resep = exact(query)
-        if (count > 0): #jumlah data
-            self.root.destroy()
-            self.root = tk.Tk()
-            self.app = Search(self.root, query)
-            self.root.mainloop()
-        else:
-            labelgaada=tk.Label(self.sidebar)
-            ft = tkFont.Font(family='Times',size=10)
-            labelgaada["font"] = ft
-            labelgaada["fg"] = "Red"
-            labelgaada["justify"] = "left"
-            labelgaada["text"] = "Resep gaada!"
-            labelgaada["bg"] = "Pink"
-            labelgaada.place(x=4,y=200,width=120,height=20)
     
     def recipeButton_command(self):
         self.root.destroy()
@@ -99,7 +82,7 @@ class Resep:
             resep.append(query)
             count=count+1
         jumlah = count #jumlah data
-        self.my_canvas = Canvas(main_frame,scrollregion=(0,0,500,math.ceil(jumlah/2)*560))
+        self.my_canvas = Canvas(main_frame,scrollregion=(0,0,500,math.ceil(jumlah/2)*350))
         self.my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
         
         my_scrollbar = Scrollbar(main_frame, orient=VERTICAL)
@@ -132,36 +115,6 @@ class Resep:
         aboutContact_window = self.sidebar.create_window(40, 80, anchor=N, window=aboutContact)
         self.sidebar.bind("<MouseWheel>", self._on_mousewheel)
         
-        #Kotak Pencarian
-        entryCari=tk.Entry(self.sidebar)
-        entryCari["borderwidth"] = "1px"
-        ft = tkFont.Font(family='Times',size=10)
-        entryCari["font"] = ft
-        entryCari["fg"] = "#333333"
-        entryCari["justify"] = "center"
-        entryCari["text"] = ""
-        entryCari["justify"] = "left"
-        entryCari.place(x=4,y=150,width=110,height=20)
-
-        labelCari=tk.Label(self.sidebar)
-        ft = tkFont.Font(family='Times',size=10)
-        labelCari["font"] = ft
-        labelCari["fg"] = "Black"
-        labelCari["justify"] = "left"
-        labelCari["text"] = "Cari Resep:"
-        labelCari["bg"] = "Pink"
-        labelCari.place(x=4,y=130,width=110,height=20)
-
-        cariButton=tk.Button(self.sidebar)
-        cariButton["bg"] = "#efefef"
-        ft = tkFont.Font(family='Times',size=10)
-        cariButton["font"] = ft
-        cariButton["fg"] = "#000000"
-        cariButton["justify"] = "center"
-        cariButton["text"] = "Cari"
-        cariButton.place(x=12,y=175,width=90,height=25)
-        cariButton["command"] = lambda : self.cariButton_command(entryCari.get())
-
         innercanvas = []
         button = []
         button_window = []
@@ -169,8 +122,8 @@ class Resep:
         img = []
         
         for i in range(jumlah):
-            innercanvas.append(Canvas(self.my_canvas, width = 400, height=560, bg = "pink"))
-            self.my_canvas.create_window(120+(i%2)*400, (i//2)*560, anchor=NW, window=innercanvas[i])
+            innercanvas.append(Canvas(self.my_canvas, width = 400, height=220, bg = "pink"))
+            self.my_canvas.create_window(120+(i%2)*400, (i//2)*220, anchor=NW, window=innercanvas[i])
             innercanvas[i].create_text(10, 125, anchor=NW, text=resep[i][1], font=("Times New Roman", 12, "bold"))
             innercanvas[i].create_text(10, 145, anchor=NW, text="Harga : ", font=("Times New Roman", 12, "bold"))
             #Harga
@@ -184,7 +137,7 @@ class Resep:
                 innercanvas[i].create_image(10, 2, anchor = tk.NW, image = self.img_ref[i])
             button.append(Button(innercanvas[i], text = "Pesan", anchor = N))
             button[i].configure(width = 8, activebackground = "#33B5E5", relief = FLAT)
-            button_window.append(innercanvas[i].create_window(360, 525, anchor=N, window=button[i]))
+            button_window.append(innercanvas[i].create_window(360, 180, anchor=N, window=button[i]))
             innercanvas[i].bind("<MouseWheel>", self._on_mousewheel)
 
         tk.mainloop()
