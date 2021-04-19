@@ -121,13 +121,16 @@ class Resep:
         image = []
         img = []
         
+        harga = 20000
+        ongkos = 5000
+
         for i in range(jumlah):
             innercanvas.append(Canvas(self.my_canvas, width = 400, height=220, bg = "pink"))
             self.my_canvas.create_window(120+(i%2)*400, (i//2)*220, anchor=NW, window=innercanvas[i])
             innercanvas[i].create_text(10, 125, anchor=NW, text=resep[i][1], font=("Times New Roman", 12, "bold"))
-            innercanvas[i].create_text(10, 145, anchor=NW, text="Harga : ", font=("Times New Roman", 12, "bold"))
+            innercanvas[i].create_text(10, 145, anchor=NW, text=("Harga : "+ str(harga)), font=("Times New Roman", 12, "bold"))
             #Harga
-            innercanvas[i].create_text(10, 160, anchor=NW, text="Harga Total : ", font=("Times New Roman", 12, "bold"))
+            innercanvas[i].create_text(10, 160, anchor=NW, text="Harga Total : " + str(harga+ongkos), font=("Times New Roman", 12, "bold"))
             #Harga Total (+ Ongkir)
             if (resep[i][4]):
                 image.append(Image.open(str(resep[i][4])))
@@ -139,6 +142,12 @@ class Resep:
             button[i].configure(width = 8, activebackground = "#33B5E5", relief = FLAT)
             button_window.append(innercanvas[i].create_window(360, 180, anchor=N, window=button[i]))
             innercanvas[i].bind("<MouseWheel>", self._on_mousewheel)
+            if (i % 2 == 0):
+                harga = harga + 5000
+                ongkos = ongkos + 1000
+            else:
+                harga = harga + 3000
+                ongkos = ongkos + 2000
 
         tk.mainloop()
 
