@@ -164,10 +164,10 @@ class Login:
     def loginButton_command(self, root, username, password, status):
         if status == "Pembeli" :
             registered = login.loginPembeli(username, password)
-            if registered :
+            if len(registered)>0 :
                 root.destroy()
                 root = tk.Tk()
-                self.app = resep.Resep(root)
+                self.app = resep.Resep(root, username, password)
                 root.mainloop()
             else :
                 print("User tidak ditemukan")

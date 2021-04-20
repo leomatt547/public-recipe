@@ -8,7 +8,6 @@ class riwayat:
     def __init__(self, usernameInput):
         self.username = usernameInput
 
-
     def windowShow(self):  
         # Current date
         todaydate = dt.datetime.now()
@@ -22,11 +21,10 @@ class riwayat:
         elif (len(month)==1):
             now = date+"/"+month+"/"+year
 
-        with open('.\\csv\\Riwayat.csv') as csv_Riwayat:
+        with open('..\\data\\Riwayat.csv') as csv_Riwayat:
             riwayatTotal = list(csv.reader(csv_Riwayat, delimiter=';'))
             csv_Riwayat.close()
 
-        print(riwayatTotal)
         root = tk.Tk()
         root.title("Riwayat Pemesanan")
 
@@ -78,15 +76,13 @@ class shopperpage:
         riwayatUser.windowShow()
 
     def ambilPesanan(self,text,buttonAmbilPesanan,buttonClearPesanan):
-        with open(".\\csv\\Pesanan.csv", "r") as csv_Pesanan:
+        with open("..\\data\\Pesanan.csv", "r") as csv_Pesanan:
             dataPesananBaru = list(csv.reader(csv_Pesanan, delimiter=';'))
             takenOrder = dataPesananBaru[1]
             dataPesananBaru.remove(dataPesananBaru[1])
-        with open(".\\csv\\Pesanan.csv", "w",newline='') as csv_Pesanan:
+        with open("..\\data\\Pesanan.csv", "w",newline='') as csv_Pesanan:
             csv.writer(csv_Pesanan,delimiter=';').writerows(dataPesananBaru)
             csv_Pesanan.close()
-        print("taken order")
-        print(takenOrder)
         self.currOrder = takenOrder
         self.writeToPage(text,buttonAmbilPesanan,buttonClearPesanan)
         
@@ -114,7 +110,6 @@ class shopperpage:
             now = date+"/0"+month+"/"+year
         elif (len(month)==1):
             now = date+"/"+month+"/"+year
-        print(now)
 
         text.configure(state="normal")
         text.delete(1.0,tk.END)
@@ -122,10 +117,10 @@ class shopperpage:
         text.configure(state="disabled")
         buttonClearPesanan.configure(state="disabled", fg="white", bg="red")
         buttonAmbilPesanan.configure(state="normal",fg="black",bg="white")
-        with open(".\\csv\\Riwayat.csv", "r") as csv_Riwayat:
+        with open("..\\data\\Riwayat.csv", "r") as csv_Riwayat:
             dataPesananBaru = list(csv.reader(csv_Riwayat, delimiter=';'))
             dataPesananBaru.append([len(dataPesananBaru),now,self.username,self.currOrder[0],self.currOrder[1],self.currOrder[2],self.currOrder[3],self.currOrder[4],self.currOrder[5]])
-        with open(".\\csv\\Riwayat.csv", "w",newline='') as csv_Riwayat:
+        with open("..\\data\\Riwayat.csv", "w",newline='') as csv_Riwayat:
             csv.writer(csv_Riwayat,delimiter=';').writerows(dataPesananBaru)
             csv_Riwayat.close()
         self.currOrder = []

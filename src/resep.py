@@ -5,6 +5,7 @@ import re
 import mysql.connector
 import math
 from PIL import ImageTk, Image
+import pembeli
 
 my_connect = mysql.connector.connect(host ="sql6.freesqldatabase.com",
                                     user = "sql6405141",
@@ -32,13 +33,19 @@ class Resep:
         self.root = tk.Tk()
         self.app = Contact(self.root)
         self.root.mainloop()
+    
+    def pindahkepembeli(self, username, password, namaresep):
+        self.root.destroy()
+        self.root = tk.Tk()
+        self.app = pembeli.Resep(self.root, username, password, namaresep)
+        self.root.mainloop()
 
-    def cariButton_command(self, query):
+    def cariButton_command(self, query, username, password):
         count,resep = exact(query)
         if (count > 0): #jumlah data
             self.root.destroy()
             self.root = tk.Tk()
-            self.app = Search(self.root, query)
+            self.app = Search(self.root, query, username, password)
             self.root.mainloop()
         else:
             labelgaada=tk.Label(self.sidebar)
@@ -56,7 +63,7 @@ class Resep:
         self.app = Resep(self.root)
         self.root.mainloop()
 
-    def __init__(self, root):
+    def __init__(self, root, username, password):
         self.root = root
         #setting title
         root.title("Resep")
@@ -70,6 +77,7 @@ class Resep:
         root.resizable(width=False, height=False)
         root.configure(background = "white")
 
+
         menuBar = tk.Frame(master = root, height = 50, width = 951, bg = "pink")
         menuBar.pack()
 
@@ -82,6 +90,16 @@ class Resep:
         labelTitle["bg"] = "pink"
         labelTitle.config(font="Courier")
         labelTitle.place(x=378,y=10,width=205,height=30)
+
+        labelPembeli=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelPembeli["font"] = ft
+        labelPembeli["fg"] = "#333333"
+        labelPembeli["justify"] = "right"
+        labelPembeli["text"] = "Hello, " + str(username)
+        labelPembeli["bg"] = "pink"
+        labelPembeli.place(x=840,y=10,width=100,height=25)
+        #labelPembeli.bind("<Button-1>", self.gotoLogin)
 
         main_frame = Frame(root)
         main_frame.pack(fill=BOTH , expand=1)
@@ -159,7 +177,7 @@ class Resep:
         cariButton["justify"] = "center"
         cariButton["text"] = "Cari"
         cariButton.place(x=12,y=175,width=90,height=25)
-        cariButton["command"] = lambda : self.cariButton_command(entryCari.get())
+        cariButton["command"] = lambda : self.cariButton_command(entryCari.get(), username, password)
 
         innercanvas = []
         button = []
@@ -181,7 +199,8 @@ class Resep:
                 img.append(ImageTk.PhotoImage(image[i]))
                 self.img_ref.append(img[i])
                 innercanvas[i].create_image(10, 2, anchor = tk.NW, image = self.img_ref[i])
-            button.append(Button(innercanvas[i], text = "Pesan", anchor = N))
+            namaresep = resep[i][1]
+            button.append(Button(innercanvas[i], text = "Pesan", anchor = N, command = lambda namaresep=namaresep : self.pindahkepembeli(username, password, namaresep)))
             button[i].configure(width = 8, activebackground = "#33B5E5", relief = FLAT)
             button_window.append(innercanvas[i].create_window(360, 525, anchor=N, window=button[i]))
             innercanvas[i].bind("<MouseWheel>", self._on_mousewheel)
@@ -191,6 +210,12 @@ class Resep:
 class Search:
     def _on_mousewheel(self, event):
         self.my_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+
+    def pindahkepembeli(self, username, password, namaresep):
+        self.root.destroy()
+        self.root = tk.Tk()
+        self.app = pembeli.Resep(self.root, username, password, namaresep)
+        self.root.mainloop()
 
     def recipeButton_command(self):
         self.root.destroy()
@@ -204,12 +229,12 @@ class Search:
         self.app = Contact(self.root)
         self.root.mainloop()
 
-    def cariButton_command(self, query):
+    def cariButton_command(self, query, username, password):
         count,resep = exact(query)
         if (count > 0): #jumlah data
             self.root.destroy()
             self.root = tk.Tk()
-            self.app = Search(self.root, query)
+            self.app = Search(self.root, query, username, password)
             self.root.mainloop()
         else:
             labelgaada=tk.Label(self.sidebar)
@@ -221,7 +246,7 @@ class Search:
             labelgaada["bg"] = "Pink"
             labelgaada.place(x=4,y=200,width=120,height=20)
             
-    def __init__(self, root, query):
+    def __init__(self, root, query, username, password):
         self.root = root
         #setting title
         root.title("Search")
@@ -247,6 +272,15 @@ class Search:
         labelTitle["bg"] = "pink"
         labelTitle.config(font="Courier")
         labelTitle.place(x=378,y=10,width=205,height=30)
+
+        labelPembeli=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelPembeli["font"] = ft
+        labelPembeli["fg"] = "#333333"
+        labelPembeli["justify"] = "right"
+        labelPembeli["text"] = "Hello, " + str(username)
+        labelPembeli["bg"] = "pink"
+        labelPembeli.place(x=840,y=10,width=100,height=25)
 
         main_frame = Frame(root)
         main_frame.pack(fill=BOTH , expand=1)
@@ -313,7 +347,7 @@ class Search:
         cariButton["justify"] = "center"
         cariButton["text"] = "Cari"
         cariButton.place(x=12,y=175,width=90,height=25)
-        cariButton["command"] = lambda : self.cariButton_command(entryCari.get())
+        cariButton["command"] = lambda : self.cariButton_command(entryCari.get(), username, password)
 
         labelhasil=tk.Label(self.sidebar)
         ft = tkFont.Font(family='Times',size=10)
@@ -344,7 +378,8 @@ class Search:
                 img.append(ImageTk.PhotoImage(image[i]))
                 self.img_ref.append(img[i])
                 innercanvas[i].create_image(10, 2, anchor = tk.NW, image = self.img_ref[i])
-            button.append(Button(innercanvas[i], text = "Pesan", anchor = N))
+            namaresep = resep[i][1]
+            button.append(Button(innercanvas[i], text = "Pesan", anchor = N, command = lambda namaresep=namaresep : self.pindahkepembeli(username, password, namaresep)))
             button[i].configure(width = 8, activebackground = "#33B5E5", relief = FLAT)
             button_window.append(innercanvas[i].create_window(360, 525, anchor=N, window=button[i]))
             innercanvas[i].bind("<MouseWheel>", self._on_mousewheel)
@@ -428,8 +463,3 @@ class Contact:
         self.sidebar.bind("<MouseWheel>", self._on_mousewheel)
 
         tk.mainloop()
-        
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = Resep(root)
-    root.mainloop()

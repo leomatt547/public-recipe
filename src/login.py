@@ -5,9 +5,9 @@ def loginPembeli(username, password) :
     dfUser = df[df["username"] == username]
     dfUser = dfUser[dfUser["password"] == password]
     if len(dfUser) == 0 :
-        return False
+        return []
     else :
-        return True
+        return dfUser
 
 def loginShopper(username, password) :
     df = pd.read_csv("../data/shopper.csv")
