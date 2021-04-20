@@ -28,10 +28,10 @@ class Resep:
     def _on_mousewheel(self, event):
         self.my_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
-    def buttonContact_command(self):
+    def buttonContact_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Contact(self.root)
+        self.app = Contact(self.root, username, password)
         self.root.mainloop()
     
     def pindahkepembeli(self, username, password, namaresep):
@@ -57,10 +57,10 @@ class Resep:
             labelgaada["bg"] = "Pink"
             labelgaada.place(x=4,y=200,width=120,height=20)
     
-    def recipeButton_command(self):
+    def recipeButton_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Resep(self.root)
+        self.app = Resep(self.root, username, password)
         self.root.mainloop()
 
     def __init__(self, root, username, password):
@@ -139,11 +139,11 @@ class Resep:
         buttonRecipeList = Button(self.sidebar, text = "Recipe List", anchor = N, activeforeground = "Black")
         buttonRecipeList.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonRecipeList_window = self.sidebar.create_window(40, 0, anchor=N, window=buttonRecipeList)
-        buttonRecipeList["command"] = lambda : self.recipeButton_command()
+        buttonRecipeList["command"] = lambda : self.recipeButton_command(username, password)
         buttonContact = Button(self.sidebar, text = "Contact Us", anchor = N, activeforeground = "Black")
         buttonContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonContact_window = self.sidebar.create_window(40, 40, anchor=N, window=buttonContact)
-        buttonContact["command"] = lambda : self.buttonContact_command()
+        buttonContact["command"] = lambda : self.buttonContact_command(username, password)
         aboutContact = Button(self.sidebar, text = "About Us", anchor = N, activeforeground = "Black")
         aboutContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         aboutContact_window = self.sidebar.create_window(40, 80, anchor=N, window=aboutContact)
@@ -217,16 +217,16 @@ class Search:
         self.app = pembeli.Resep(self.root, username, password, namaresep)
         self.root.mainloop()
 
-    def recipeButton_command(self):
+    def recipeButton_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Resep(self.root)
+        self.app = Resep(self.root, username, password)
         self.root.mainloop()
 
-    def buttonContact_command(self):
+    def buttonContact_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Contact(self.root)
+        self.app = Contact(self.root, username, password)
         self.root.mainloop()
 
     def cariButton_command(self, query, username, password):
@@ -309,9 +309,9 @@ class Search:
         buttonRecipeList = Button(self.sidebar, text = "Recipe List", anchor = N, activeforeground = "Black")
         buttonRecipeList.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonRecipeList_window = self.sidebar.create_window(40, 0, anchor=N, window=buttonRecipeList)
-        buttonRecipeList["command"] = lambda : self.recipeButton_command()
+        buttonRecipeList["command"] = lambda : self.recipeButton_command(username, password)
         buttonContact = Button(self.sidebar, text = "Contact Us", anchor = N, activeforeground = "Black")
-        buttonContact["command"] = lambda : self.buttonContact_command()
+        buttonContact["command"] = lambda : self.buttonContact_command(username, password)
         buttonContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonContact_window = self.sidebar.create_window(40, 40, anchor=N, window=buttonContact)
         aboutContact = Button(self.sidebar, text = "About Us", anchor = N, activeforeground = "Black")
@@ -390,19 +390,19 @@ class Contact:
     def _on_mousewheel(self, event):
         self.my_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
-    def buttonContact_command(self):
+    def buttonContact_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Contact(self.root)
+        self.app = Contact(self.root, username, password)
         self.root.mainloop()
 
-    def recipeButton_command(self):
+    def recipeButton_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Resep(self.root)
+        self.app = Resep(self.root, username, password)
         self.root.mainloop()
         
-    def __init__(self, root):
+    def __init__(self, root, username, password):
         self.root = root
         #setting title
         root.title("Contact Us")
@@ -452,11 +452,11 @@ class Contact:
         buttonRecipeList = Button(self.sidebar, text = "Recipe List", anchor = N, activeforeground = "Black")
         buttonRecipeList.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonRecipeList_window = self.sidebar.create_window(40, 0, anchor=N, window=buttonRecipeList)
-        buttonRecipeList["command"] = lambda : self.recipeButton_command()
+        buttonRecipeList["command"] = lambda : self.recipeButton_command(username, password)
         buttonContact = Button(self.sidebar, text = "Contact Us", anchor = N, activeforeground = "Black")
         buttonContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonContact_window = self.sidebar.create_window(40, 40, anchor=N, window=buttonContact)
-        buttonContact["command"] = lambda : self.buttonContact_command()
+        buttonContact["command"] = lambda : self.buttonContact_command(username, password)
         aboutContact = Button(self.sidebar, text = "About Us", anchor = N, activeforeground = "Black")
         aboutContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         aboutContact_window = self.sidebar.create_window(40, 80, anchor=N, window=aboutContact)

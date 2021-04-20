@@ -171,6 +171,14 @@ class Login:
                 root.mainloop()
             else :
                 print("User tidak ditemukan")
+                labelPassword=tk.Label(root)
+                ft = tkFont.Font(family='Times',size=10)
+                labelPassword["font"] = ft
+                labelPassword["fg"] = "red"
+                labelPassword["justify"] = "center"
+                labelPassword["text"] = "Maaf, username/password salah"
+                labelPassword["bg"] = "white"
+                labelPassword.place(x=310,y=545,width=370,height=30)
         elif status == "Shopper" :
             registered = login.loginShopper(username, password)
             if registered :

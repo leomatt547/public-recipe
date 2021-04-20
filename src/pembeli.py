@@ -53,10 +53,10 @@ class Resep:
             csv.writer(csv_Pesanan,delimiter=';').writerows(dataPesananBaru)
             csv_Pesanan.close()
 
-    def buttonContact_command(self):
+    def buttonContact_command(self, username, password):
         self.root.destroy()
         self.root = tk.Tk()
-        self.app = Contact(self.root)
+        self.app = Contact(self.root, username, password)
         self.root.mainloop()
     
     def recipeButton_command(self,username, password):
@@ -142,7 +142,7 @@ class Resep:
         buttonContact = Button(self.sidebar, text = "Contact Us", anchor = N, activeforeground = "Black")
         buttonContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         buttonContact_window = self.sidebar.create_window(40, 40, anchor=N, window=buttonContact)
-        buttonContact["command"] = lambda : self.buttonContact_command()
+        buttonContact["command"] = lambda : self.buttonContact_command(username, password)
         aboutContact = Button(self.sidebar, text = "About Us", anchor = N, activeforeground = "Black")
         aboutContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         aboutContact_window = self.sidebar.create_window(40, 80, anchor=N, window=aboutContact)
