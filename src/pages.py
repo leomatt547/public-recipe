@@ -5,6 +5,8 @@ from PIL import ImageTk, Image
 import login
 import register
 import pandas as pd
+import resep
+import Shopper
 
 class homePage :
     def __init__(self, root):
@@ -57,7 +59,7 @@ class homePage :
         canvas = tk.Canvas(root, width = 300, height = 300, highlightthickness = 0)
         canvas.pack()
         canvas["bg"] = "white"
-        img = ImageTk.PhotoImage(file = "./img/logo.jpg")
+        img = ImageTk.PhotoImage(file = "../img/logo.jpg")
         canvas.create_image(60, 2, anchor = tk.NW, image = img)
         tk.mainloop()
 
@@ -146,12 +148,12 @@ class Login:
         loginButton["justify"] = "center"
         loginButton["text"] = "Login"
         loginButton.place(x=450,y=510,width=70,height=25)
-        loginButton["command"] = lambda : self.loginButton_command(entryUsername.get(), entryPassword.get(), comboBox.get())
+        loginButton["command"] = lambda : self.loginButton_command(root, entryUsername.get(), entryPassword.get(), comboBox.get())
 
         canvas = tk.Canvas(root, width = 300, height = 300, highlightthickness = 0)
         canvas.pack()
         canvas["bg"] = "white"
-        img = ImageTk.PhotoImage(file = "./img/logo.jpg")
+        img = ImageTk.PhotoImage(file = "../img/logo.jpg")
         canvas.create_image(60, 2, anchor = tk.NW, image = img)
 
         comboBox = ttk.Combobox(root, values = ["Shopper", "Pembeli"])
@@ -159,17 +161,22 @@ class Login:
 
         tk.mainloop()
 
-    def loginButton_command(self, username, password, status):
+    def loginButton_command(self, root, username, password, status):
         if status == "Pembeli" :
             registered = login.loginPembeli(username, password)
             if registered :
-                print("Berhasil masuk")
+                root.destroy()
+                root = tk.Tk()
+                self.app = resep.Resep(root)
+                root.mainloop()
             else :
                 print("User tidak ditemukan")
         elif status == "Shopper" :
             registered = login.loginShopper(username, password)
             if registered :
-                print("Berhasil masuk")
+                root.destroy()
+                self.app = Shopper.shopperpage(username)
+                
             else :
                 print("User tidak ditemukan")
 
@@ -313,26 +320,29 @@ class Register:
         buttonRegister["justify"] = "center"
         buttonRegister["text"] = "Register"
         buttonRegister.place(x=640,y=310,width=70,height=25)
-        buttonRegister["command"] = lambda : self.buttonRegister_command(entryName.get(), entryPhone.get(), entryEmail.get(), entryAddress.get(), entryUsername.get(), entryPassword.get(), comboBox.get())
+        buttonRegister["command"] = lambda : self.buttonRegister_command(root, entryName.get(), entryPhone.get(), entryEmail.get(), entryAddress.get(), entryUsername.get(), entryPassword.get(), comboBox.get())
 
-    def buttonRegister_command(self, name, phone, email, address, username, password, status):
+    def buttonRegister_command(self, root, name, phone, email, address, username, password, status):
         if status == "Pembeli" :
             registered = register.registerPembeli(name, phone, email, address, username, password)
             if registered :
-                print("Berhasil diregister")
+                root.destroy()
+                root = tk.Tk()
+                self.app = Login(root)
+                root.mainloop()
             else :
                 print("User telah pernah teregister")
         elif status == "Shopper" :
             registered = register.registerShopper(name, phone, email, address, username, password)    
             if registered :
-                print("Berhasil diregister")
+                root.destroy()
+                root = tk.Tk()
+                self.app = Login(root)
+                root.mainloop()
             else :
                 print("User telah pernah teregister")
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = homePage(root)
-    root.mainloop()
+
 
 
 

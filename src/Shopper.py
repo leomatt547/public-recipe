@@ -67,6 +67,7 @@ class shopperpage:
     def __init__(self, username):
         self.username = username
         self.currOrder = []
+        self.windowShow()
 
     def buttonPick(self):
         print("Hi")
@@ -183,9 +184,3 @@ class shopperpage:
         root.mainloop()
 
     
-
-# riwayatShopper = riwayat("jeff123")
-# riwayatShopper.windowShow()
-
-shopperJeff = shopperpage("jeff123")
-shopperJeff.windowShow()

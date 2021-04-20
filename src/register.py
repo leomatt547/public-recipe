@@ -9,13 +9,13 @@ def registerPembeli(name, phone, email, address, username, password) :
             'username' : username,
             'password' : password}
 
-    df = pd.read_csv("./data/pembeli.csv")
+    df = pd.read_csv("../data/pembeli.csv")
     dfUser = df[df["username"] == username ]
     dfUser = dfUser[dfUser["password"] == password]
     print(dfUser)
     if len(dfUser) == 0 :
         df = df.append(data, ignore_index = True)
-        df.to_csv("./data/pembeli.csv", index = False)
+        df.to_csv("../data/pembeli.csv", index = False)
         return True
     else :
         return False
@@ -28,12 +28,12 @@ def registerShopper(name, phone, email, address, username, password) :
             'username' : username,
             'password' : password}
 
-    df = pd.read_csv("./data/shopper.csv")
+    df = pd.read_csv("../data/shopper.csv")
     dfUser = df[df["username"] == username ]
     dfUser = dfUser[dfUser["password"] == password]
     if len(dfUser) == 0 :
         df = df.append(data, ignore_index = True)
-        df.to_csv("./data/shopper.csv", index = False)
+        df.to_csv("../data/shopper.csv", index = False)
         return True
     else :
         return False
