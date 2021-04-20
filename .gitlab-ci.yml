@@ -1,7 +1,0 @@
-test_master:
-  tags:
-    - rpl
-  only:
-    - master
-  script:
-    - pytest
