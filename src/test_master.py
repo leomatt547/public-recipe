@@ -1,6 +1,7 @@
 import pytest
 import resep
 import Shopper
+import pembeli
 
 #Test Shopper
 
@@ -18,4 +19,16 @@ def test_count_resep():
 def test_count_resep2():
     query = "ketupat"
     countnya,resepnya =  resep.exact(query)
+    assert (countnya == 1)
+
+#Test Pembeli
+
+def test_count_pembeli():
+    query = "nasi goreng"
+    countnya,resepnya =  pembeli.exact(query)
+    assert (countnya == 1)
+
+def test_count_pembeli2():
+    query = "ketupat"
+    countnya,resepnya =  pembeli.exact(query)
     assert (countnya == 1)
