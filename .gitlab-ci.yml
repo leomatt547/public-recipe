@@ -1,5 +1,0 @@
-test_shopper:
-  tags:
-    - rpl
-  script:
-    - pytest
