@@ -1,5 +1,5 @@
-demo_job_1:
+test_shopper:
   tags:
     - rpl
   script:
-    - echo Hello World
+    - pytest
