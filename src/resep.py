@@ -6,6 +6,7 @@ import mysql.connector
 import math
 from PIL import ImageTk, Image
 import pembeli
+import pandas as pd
 
 my_connect = mysql.connector.connect(host ="sql6.freesqldatabase.com",
                                     user = "sql6405141",
@@ -416,6 +417,10 @@ class Contact:
         root.resizable(width=False, height=False)
         root.configure(background = "white")
 
+        dframe = pd.read_csv("../data/shopper.csv")
+        df1 = dframe[['nama_shopper', 'no_telp_shopper']]
+        resep = df1.values.tolist()
+
         menuBar = tk.Frame(master = root, height = 50, width = 951, bg = "pink")
         menuBar.pack()
 
@@ -432,7 +437,8 @@ class Contact:
         main_frame = Frame(root)
         main_frame.pack(fill=BOTH , expand=1)
 
-        self.my_canvas = Canvas(main_frame,scrollregion=(0,0,500,700))
+        jumlah = len(df1) #jumlah data
+        self.my_canvas = Canvas(main_frame,scrollregion=(0,0,500,math.ceil(jumlah/2)*201))
         self.my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
         
         my_scrollbar = Scrollbar(main_frame, orient=VERTICAL)
@@ -444,10 +450,21 @@ class Contact:
         self.my_canvas.config(width=300,height=600)
         self.my_canvas.config(yscrollcommand=my_scrollbar.set)
         self.my_canvas.pack(side=LEFT,expand=True,fill=BOTH)
+        
+        labelPembeli=tk.Label(root)
+        ft = tkFont.Font(family='Times',size=10)
+        labelPembeli["font"] = ft
+        labelPembeli["fg"] = "#333333"
+        labelPembeli["justify"] = "right"
+        labelPembeli["text"] = "Hello, " + str(username)
+        labelPembeli["bg"] = "pink"
+        labelPembeli.place(x=840,y=10,width=100,height=25)
 
-        self.img_ref = []
         #SIDEBAR
-        self.sidebar = Canvas(self.my_canvas, width=118, height=703, bg = "pink")
+        if (jumlah > 6):
+            self.sidebar = Canvas(self.my_canvas, width=118, height=(math.ceil(jumlah/2)*200), bg = "pink")
+        else:
+            self.sidebar = Canvas(self.my_canvas, width=118, height=703, bg = "pink")
         self.my_canvas.create_window(0, 0, anchor=NW, window=self.sidebar)
         buttonRecipeList = Button(self.sidebar, text = "Recipe List", anchor = N, activeforeground = "Black")
         buttonRecipeList.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
@@ -461,5 +478,18 @@ class Contact:
         aboutContact.configure(width = 120, height = 2,activebackground = "Pink", relief = FLAT)
         aboutContact_window = self.sidebar.create_window(40, 80, anchor=N, window=aboutContact)
         self.sidebar.bind("<MouseWheel>", self._on_mousewheel)
+
+        innercanvas = []
+        button = []
+        button_window = []
+
+        for i in range(jumlah):
+            innercanvas.append(Canvas(self.my_canvas, width = 400, height=100, bg = "pink"))
+            self.my_canvas.create_window(120+(i%2)*400, (i//2)*100, anchor=NW, window=innercanvas[i])
+            innercanvas[i].create_text(10, 5, anchor=NW, text="Nama Shopper", font=("Times New Roman", 9, "bold"))
+            innercanvas[i].create_text(10, 20, anchor=NW, text=resep[i][0], font=("Times New Roman", 12, "bold"))
+            innercanvas[i].create_text(10, 60, anchor=NW, text="Nomor Telepon", font=("Times New Roman", 9, "bold"))
+            innercanvas[i].create_text(10, 80, anchor=NW, text=resep[i][1].replace('\n',''))
+            innercanvas[i].bind("<MouseWheel>", self._on_mousewheel)
 
         tk.mainloop()
