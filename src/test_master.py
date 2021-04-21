@@ -32,3 +32,4 @@ def test_count_pembeli2():
     query = "ketupat"
     countnya,resepnya =  pembeli.exact(query)
     assert (countnya == 1)
+
