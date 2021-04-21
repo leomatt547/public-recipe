@@ -20,10 +20,10 @@ Perangkat yang lunak akan dirancang berbasis website dengan setidaknya 5 databas
 
 Nama Modul | NIM/Nama penanggungjawab | Capture Screen 
 --- | --- | ---
-Registrasi dan Login | 13519191 - Kevin Ryan
-Pembeli dan Total Harga | 13519169 - David Owen Adiwiguna | ![](img/logo.png)
-Shopper dan Riwayat Pemesanan | 13519175 - Stefanus Jeremy Aslan |
-Pencarian Resep dan Kontak Shoppercell | 13519215 - Leonard Matheus |
+Registrasi dan Login | 13519191 - Kevin Ryan |  <img src="/docs/login.jpg"  width="700" height="500">
+Pembeli dan Total Harga | 13519169 - David Owen Adiwiguna | <img src="/docs/pembeli.jpg"  width="700" height="300">
+Shopper dan Riwayat Pemesanan | 13519175 - Stefanus Jeremy Aslan | <img src="/docs/shopper.jpg"  width="300" height="350">
+Pencarian Resep dan Kontak Shoppercell | 13519215 - Leonard Matheus | <img src="/docs/resep.jpg"  width="700" height="450">
 
 <h2>Daftar tabel basis data yang diimplementasi dilengkapi dengan nama tabel dan atributnya</h2>
 
