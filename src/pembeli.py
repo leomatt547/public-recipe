@@ -9,6 +9,7 @@ import login
 from PIL import ImageTk, Image
 import csv
 import pandas
+import resep
 
 my_connect = mysql.connector.connect(host ="sql6.freesqldatabase.com",
                                     user = "sql6405141",
@@ -68,7 +69,7 @@ class Resep:
     def __init__(self, root, username, password, namaresep):
         self.root = root
         #setting title
-        root.title("undefined")
+        root.title(namaresep)
         #setting window size
         width=951
         height=703
